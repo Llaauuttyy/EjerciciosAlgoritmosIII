@@ -496,6 +496,17 @@ substractFromAnEntero: aMinuend
 
 	^self class with: aMinuend integerValue - self integerValue.! !
 
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:50:56'!
+canBeADenominator
+
+	self subclassResponsibility.! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:47'!
+canBeANumerator
+
+	self subclassResponsibility.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: 'Numeros-Parte2-Ejercicio'!
@@ -570,6 +581,17 @@ fibonacci
 
 	! !
 
+
+!Cero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:04'!
+canBeADenominator
+
+	^False.! !
+
+!Cero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:52'!
+canBeANumerator
+	
+	Fraccion error: 'una fraccion no puede ser cero'.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Cero class' category: 'Numeros-Parte2-Ejercicio'!
@@ -628,6 +650,18 @@ fibonacci
 integerValue
 
 	^value.! !
+
+
+!NaturalDesdeDos methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:15'!
+canBeADenominator
+
+	^True.! !
+
+!NaturalDesdeDos methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:57'!
+canBeANumerator
+
+	^True.
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -694,6 +728,17 @@ integerValue
 
 	^value.! !
 
+
+!Negativo methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:21'!
+canBeADenominator
+
+	^True.! !
+
+!Negativo methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:52:05'!
+canBeANumerator
+
+	^True.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Negativo class' category: 'Numeros-Parte2-Ejercicio'!
@@ -751,6 +796,17 @@ integerValue
 fibonacci
 
 	^self class with: 1.! !
+
+
+!Uno methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:26'!
+canBeADenominator
+
+	Fraccion error: 'una fraccion no puede tener denominador 1 porque sino es un entero'.! !
+
+!Uno methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:52:10'!
+canBeANumerator
+	
+	^True.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -843,12 +899,12 @@ numerator
 	^ numerator! !
 
 
-!Fraccion methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 22:54'!
+!Fraccion methodsFor: 'initialization' stamp: 'LD 10/25/2021 17:52:47'!
 initializeWith: aNumerator over: aDenominator
 
 	"Estas precondiciones estan por si se comenten errores en la implementacion - Hernan"
-	aNumerator isZero ifTrue: [ self error: 'una fraccion no puede ser cero' ].
-	aDenominator isOne ifTrue: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
+	aNumerator canBeANumerator.
+	aDenominator canBeADenominator.
 	
 	numerator := aNumerator.
 	denominator := aDenominator ! !
@@ -889,20 +945,20 @@ beAddedToAFraccion: anAugend
 	
 	^newNumerator / newDenominator! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 16:18:05'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/25/2021 17:55:29'!
 beAddedToAnEntero: anAugend
-
-	^((anAugend * self denominator) + self numerator) / self denominator.! !
+	
+	^anAugend beAddedToAFraccion: self.! !
 
 !Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 16:58:23'!
 beMultipliedToAFraccion: aMultiplicand
 
 	^(aMultiplicand numerator * self numerator) / (aMultiplicand denominator * self denominator)! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 16:58:42'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/25/2021 17:55:22'!
 beMultipliedToAnEntero: aMultiplicand
-
-	^(aMultiplicand * self numerator) / self denominator.! !
+	
+	^aMultiplicand beMultipliedToAFraccion: self.! !
 
 !Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 17:26:03'!
 divideAFraccion: aDividend
@@ -926,10 +982,10 @@ substractFromAFraccion: aMinuend
 
 	! !
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 17:03:43'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/25/2021 17:55:11'!
 substractFromAnEntero: aMinuend
-
-	^(self denominator * aMinuend) - self numerator / self denominator.
+	
+	^(aMinuend substractFromAFraccion: self) negated.
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
