@@ -426,6 +426,16 @@ printOn: aStream
 	aStream print: self integerValue. ! !
 
 
+!Entero methodsFor: 'testing' stamp: 'LD 10/25/2021 17:50:56'!
+canBeADenominator
+
+	self subclassResponsibility.! !
+
+!Entero methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:47'!
+canBeANumerator
+
+	self subclassResponsibility.! !
+
 !Entero methodsFor: 'testing' stamp: 'LD 10/24/2021 20:37:56'!
 isNegative
 	
@@ -495,17 +505,6 @@ substractFromAFraccion: aMinuend
 substractFromAnEntero: aMinuend
 
 	^self class with: aMinuend integerValue - self integerValue.! !
-
-
-!Entero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:50:56'!
-canBeADenominator
-
-	self subclassResponsibility.! !
-
-!Entero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:47'!
-canBeANumerator
-
-	self subclassResponsibility.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -582,12 +581,12 @@ fibonacci
 	! !
 
 
-!Cero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:04'!
+!Cero methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:04'!
 canBeADenominator
 
 	^False.! !
 
-!Cero methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:52'!
+!Cero methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:52'!
 canBeANumerator
 	
 	Fraccion error: 'una fraccion no puede ser cero'.! !
@@ -652,12 +651,12 @@ integerValue
 	^value.! !
 
 
-!NaturalDesdeDos methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:15'!
+!NaturalDesdeDos methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:15'!
 canBeADenominator
 
 	^True.! !
 
-!NaturalDesdeDos methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:57'!
+!NaturalDesdeDos methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:57'!
 canBeANumerator
 
 	^True.
@@ -729,12 +728,12 @@ integerValue
 	^value.! !
 
 
-!Negativo methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:21'!
+!Negativo methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:21'!
 canBeADenominator
 
 	^True.! !
 
-!Negativo methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:52:05'!
+!Negativo methodsFor: 'testing' stamp: 'LD 10/25/2021 17:52:05'!
 canBeANumerator
 
 	^True.! !
@@ -798,12 +797,12 @@ fibonacci
 	^self class with: 1.! !
 
 
-!Uno methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:51:26'!
+!Uno methodsFor: 'testing' stamp: 'LD 10/25/2021 17:51:26'!
 canBeADenominator
 
 	Fraccion error: 'una fraccion no puede tener denominador 1 porque sino es un entero'.! !
 
-!Uno methodsFor: 'as yet unclassified' stamp: 'LD 10/25/2021 17:52:10'!
+!Uno methodsFor: 'testing' stamp: 'LD 10/25/2021 17:52:10'!
 canBeANumerator
 	
 	^True.! !
