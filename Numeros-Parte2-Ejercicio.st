@@ -400,10 +400,10 @@ fibonacci
 
 	^(anObject isKindOf: self class) and: [ self integerValue = anObject integerValue ].! !
 
-!Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:17'!
+!Entero methodsFor: 'comparing' stamp: 'SS 10/25/2021 12:27:18'!
 hash
 
-	^value hash! !
+	^self integerValue hash! !
 
 
 !Entero methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 20:09'!
@@ -476,10 +476,10 @@ divideAFraccion: aDividend
 
 	^aDividend numerator / (aDividend denominator * self).! !
 
-!Entero methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 22:39:54'!
+!Entero methodsFor: 'arithmetic operations - private' stamp: 'SS 10/25/2021 12:10:48'!
 divideAnEntero: aDividend
-
-	^((Entero subclasses) detect: [:aSubclass | self isKindOf: aSubclass]) instanceWith: self over: aDividend.! !
+	
+	^self class instanceWith: aDividend over: self. ! !
 
 !Entero methodsFor: 'arithmetic operations - private' stamp: 'LD 10/24/2021 20:34:30'!
 greatestCommonDivisorWith: anEntero 
@@ -502,31 +502,26 @@ substractFromAnEntero: aMinuend
 Entero class
 	instanceVariableNames: ''!
 
-!Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 22:48:16'!
-createANumeroWith: aDivisor over: aDividend
+!Entero class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:06:27'!
+createANumeroWith: aDividend over: aDivisor
 
 	self subclassResponsibility.! !
+
+!Entero class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:07:03'!
+instanceWith: aDividend over: aDivisor
+
+	self subclassResponsibility.! !
+
+!Entero class methodsFor: 'instance creation - private' stamp: 'LD 10/24/2021 23:21:01'!
+with: aNumerator over: aDenominator
+
+	self subclassResponsibility.! !
+
 
 !Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
 instanceWith: aValue
 
 	self subclassResponsibility.! !
-
-!Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 22:39:54'!
-instanceWith: aDivisor over: aDividend
-
-	self subclassResponsibility.! !
-
-!Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:11:02'!
-isAbleToInstanceWith: aValue
-
-	self subclassResponsibility.
-
-	! !
-
-!Entero class methodsFor: 'instance creation' stamp: 'NR 4/8/2019 02:57:57'!
-negativeFibonacciErrorDescription
-	^ ' Fibonacci no está definido aquí para Enteros Negativos'! !
 
 !Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:12:12'!
 with: aValue 
@@ -541,10 +536,18 @@ with: aValue
 	^aSubClassToInstance instanceWith: aValue.
 	! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:21:01'!
-with: aNumerator over: aDenominator
 
-	self subclassResponsibility.! !
+!Entero class methodsFor: 'instance validation' stamp: 'LD 10/24/2021 21:11:02'!
+isAbleToInstanceWith: aValue
+
+	self subclassResponsibility.
+
+	! !
+
+
+!Entero class methodsFor: 'error descriptions' stamp: 'NR 4/8/2019 02:57:57'!
+negativeFibonacciErrorDescription
+	^ ' Fibonacci no está definido aquí para Enteros Negativos'! !
 
 
 !classDefinition: #Cero category: 'Numeros-Parte2-Ejercicio'!
@@ -573,31 +576,32 @@ fibonacci
 Cero class
 	instanceVariableNames: ''!
 
-!Cero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 22:48:16'!
-createANumeroWith: aDivisor over: aDividend
-	
-	^aDividend.! !
-
 !Cero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
 instanceWith: aValue
 
 	^Cero new.! !
-
-!Cero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 22:39:54'!
-instanceWith: aDivisor over: aDividend
-
-	Fraccion error: Fraccion canNotDivideByZeroErrorDescription! !
-
-!Cero class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:23:44'!
-with: aNumerator over: aDenominator
-
-	^Fraccion with: aNumerator over: aDenominator.! !
 
 
 !Cero class methodsFor: 'instance validation' stamp: 'LD 10/24/2021 21:11:02'!
 isAbleToInstanceWith: aValue
 
 	^aValue = 0.! !
+
+
+!Cero class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 11:59:35'!
+createANumeroWith: aDividend over: aDivisor
+	
+	^aDividend.! !
+
+!Cero class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 11:59:50'!
+instanceWith: aDividend over: aDivisor
+
+	Fraccion error: Fraccion canNotDivideByZeroErrorDescription! !
+
+!Cero class methodsFor: 'instance creation - private' stamp: 'LD 10/24/2021 23:23:44'!
+with: aNumerator over: aDenominator
+
+	^Fraccion with: aNumerator over: aDenominator.! !
 
 
 !classDefinition: #NaturalDesdeDos category: 'Numeros-Parte2-Ejercicio'!
@@ -637,8 +641,14 @@ isAbleToInstanceWith: aValue
 	^aValue > 1.! !
 
 
-!NaturalDesdeDos class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:24:20'!
-createANumeroWith: aDivisor over: aDividend
+!NaturalDesdeDos class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
+instanceWith: aValue
+
+	^NaturalDesdeDos new initalizeWith: aValue.! !
+
+
+!NaturalDesdeDos class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 11:58:16'!
+createANumeroWith: aDividend over: aDivisor
 
 	| denominator greatestCommonDivisor numerator |
 
@@ -650,19 +660,14 @@ createANumeroWith: aDivisor over: aDividend
 
 	! !
 
-!NaturalDesdeDos class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
-instanceWith: aValue
+!NaturalDesdeDos class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 11:59:04'!
+instanceWith: aDividend over: aDivisor
 
-	^NaturalDesdeDos new initalizeWith: aValue.! !
-
-!NaturalDesdeDos class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:25:36'!
-instanceWith: aDivisor over: aDividend
-
-	^aDividend class createANumeroWith: aDivisor over: aDividend.
+	^aDividend class createANumeroWith: aDividend over: aDivisor.
 				
 	! !
 
-!NaturalDesdeDos class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:21:33'!
+!NaturalDesdeDos class methodsFor: 'instance creation - private' stamp: 'LD 10/24/2021 23:21:33'!
 with: aNumerator over: aDenominator
 
 	^Fraccion with: aNumerator over: aDenominator.
@@ -701,8 +706,8 @@ isAbleToInstanceWith: aValue
 	^aValue < 0.! !
 
 
-!Negativo class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:24:37'!
-createANumeroWith: aDivisor over: aDividend
+!Negativo class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:00:43'!
+createANumeroWith: aDividend over: aDivisor
 
 	| denominator greatestCommonDivisor numerator |
 
@@ -712,20 +717,21 @@ createANumeroWith: aDivisor over: aDividend
 	
 	^denominator class with: numerator over: denominator.! !
 
+!Negativo class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:00:58'!
+instanceWith: aDividend over: aDivisor
+
+	^aDividend negated / aDivisor negated.! !
+
+!Negativo class methodsFor: 'instance creation - private' stamp: 'LD 10/24/2021 23:23:37'!
+with: aNumerator over: aDenominator
+
+	^Fraccion with: aNumerator over: aDenominator.! !
+
+
 !Negativo class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
 instanceWith: aValue
 
 	^Negativo new initalizeWith: aValue.! !
-
-!Negativo class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 22:39:54'!
-instanceWith: aDivisor over: aDividend
-
-	^aDividend negated / aDivisor negated.! !
-
-!Negativo class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:23:37'!
-with: aNumerator over: aDenominator
-
-	^Fraccion with: aNumerator over: aDenominator.! !
 
 
 !classDefinition: #Uno category: 'Numeros-Parte2-Ejercicio'!
@@ -758,8 +764,8 @@ isAbleToInstanceWith: aValue
 	^aValue = 1.! !
 
 
-!Uno class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:25:07'!
-createANumeroWith: aDivisor over: aDividend
+!Uno class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:01:17'!
+createANumeroWith: aDividend over: aDivisor
 
 	| denominator greatestCommonDivisor numerator |
 
@@ -769,20 +775,21 @@ createANumeroWith: aDivisor over: aDividend
 	
 	^denominator class with: numerator over: denominator.! !
 
+!Uno class methodsFor: 'instance creation - private' stamp: 'SS 10/25/2021 12:01:47'!
+instanceWith: aDividend over: aDivisor
+
+	^aDividend class createANumeroWith: aDividend over: aDivisor.! !
+
+!Uno class methodsFor: 'instance creation - private' stamp: 'LD 10/24/2021 23:21:01'!
+with: aNumerator over: aDenominator
+
+	^aNumerator.! !
+
+
 !Uno class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 21:08:35'!
 instanceWith: aValue
 
 	^Uno new.! !
-
-!Uno class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:26:41'!
-instanceWith: aDivisor over: aDividend
-
-	^aDividend class createANumeroWith: aDivisor over: aDividend.! !
-
-!Uno class methodsFor: 'instance creation' stamp: 'LD 10/24/2021 23:21:01'!
-with: aNumerator over: aDenominator
-
-	^aNumerator.! !
 
 
 !classDefinition: #Fraccion category: 'Numeros-Parte2-Ejercicio'!
@@ -814,15 +821,15 @@ Numero subclass: #Fraccion
 	^aDivisor divideAFraccion: self.! !
 
 
-!Fraccion methodsFor: 'comparing' stamp: 'LD 10/22/2021 02:17:22'!
+!Fraccion methodsFor: 'comparing' stamp: 'SS 10/25/2021 12:23:50'!
 = anObject
 
-	^(anObject isKindOf: self class) and: [ (numerator * anObject denominator) = (denominator * anObject numerator) ]! !
+	^(anObject isKindOf: self class) and: [ (self numerator * anObject denominator) = (self denominator * anObject numerator) ]! !
 
-!Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:50'!
+!Fraccion methodsFor: 'comparing' stamp: 'SS 10/25/2021 12:24:59'!
 hash
 
-	^(numerator hash / denominator hash) hash! !
+	^(self numerator hash / self denominator hash) hash! !
 
 
 !Fraccion methodsFor: 'accessing' stamp: 'HernanWilkinson 5/7/2016 21:56'!
@@ -847,10 +854,10 @@ initializeWith: aNumerator over: aDenominator
 	denominator := aDenominator ! !
 
 
-!Fraccion methodsFor: 'testing' stamp: 'NR 9/23/2018 23:41:38'!
+!Fraccion methodsFor: 'testing' stamp: 'SS 10/25/2021 12:25:33'!
 isNegative
 	
-	^numerator < 0! !
+	^self numerator < 0! !
 
 !Fraccion methodsFor: 'testing' stamp: 'HernanWilkinson 5/7/2016 22:51'!
 isOne
@@ -863,22 +870,22 @@ isZero
 	^false! !
 
 
-!Fraccion methodsFor: 'printing' stamp: 'HAW 9/24/2018 08:54:46'!
+!Fraccion methodsFor: 'printing' stamp: 'SS 10/25/2021 12:26:15'!
 printOn: aStream
 
 	aStream 
-		print: numerator;
+		print: self numerator;
 		nextPut: $/;
-		print: denominator ! !
+		print: self denominator ! !
 
 
-!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'LD 10/22/2021 02:49:55'!
+!Fraccion methodsFor: 'arithmetic operations - private' stamp: 'SS 10/25/2021 12:24:27'!
 beAddedToAFraccion: anAugend
 
 	| newDenominator newNumerator |
 	
-	newNumerator := (anAugend denominator * numerator) + (anAugend numerator * denominator).
-	newDenominator := anAugend denominator * denominator.
+	newNumerator := (anAugend denominator * self numerator) + (anAugend numerator * self denominator).
+	newDenominator := anAugend denominator * self denominator.
 	
 	^newNumerator / newDenominator! !
 
