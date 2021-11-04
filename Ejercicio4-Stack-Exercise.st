@@ -46,7 +46,7 @@ test04PopReturnsLastPushedObject
 	
 	self assert: stack pop = pushedObject! !
 
-!OOLimitedStackTest methodsFor: 'tests' stamp: 'SS 11/3/2021 21:57:28'!
+!OOLimitedStackTest methodsFor: 'tests' stamp: 'LD 11/3/2021 22:37:23'!
 test05StackBehavesLIFO
 
 	| stack firstPushedObject secondPushedObject |
@@ -484,6 +484,11 @@ isEmpty
 
 	^self size = 0. ! !
 
+!OOStack methodsFor: 'interactions' stamp: 'LD 11/3/2021 22:51:35'!
+isFull
+
+	self subclassResponsibility.! !
+
 !OOStack methodsFor: 'interactions' stamp: 'SS 11/3/2021 21:41:56'!
 isNotEmpty
 
@@ -541,10 +546,10 @@ initializeWith: aSize
 	limit := aSize. ! !
 
 
-!OOLimitedStack methodsFor: 'interactions' stamp: 'SS 11/3/2021 21:27:29'!
+!OOLimitedStack methodsFor: 'interactions' stamp: 'LD 11/3/2021 22:47:21'!
 isFull
 
-	^limit >= self size. ! !
+	^limit <= self size.! !
 
 !OOLimitedStack methodsFor: 'interactions' stamp: 'SS 11/3/2021 21:23:14'!
 isNotEmpty
@@ -607,6 +612,12 @@ isNotEmpty
 push: anElement
 
 	content add: anElement. ! !
+
+
+!OOUnlimitedStack methodsFor: 'as yet unclassified' stamp: 'LD 11/3/2021 22:43:20'!
+isFull
+
+	^false.! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
