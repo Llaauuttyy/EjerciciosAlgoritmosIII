@@ -519,24 +519,8 @@ MarsRoverCommand subclass: #BackwardsCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!BackwardsCommand methodsFor: 'private' stamp: 'LD 11/16/2021 20:30:37'!
+!BackwardsCommand methodsFor: 'private' stamp: 'SS 11/18/2021 16:11:14'!
 beAccomplishedBy: aMarsRover
-
-	"aMarsRover currentCardinal = 'N' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (0 @ -1).
-	].
-		
-	aMarsRover currentCardinal = 'O' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (1 @ 0).
-	].
-		
-	aMarsRover currentCardinal = 'S' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (0 @ 1).
-	].	
-		
-	aMarsRover currentCardinal = 'E' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (-1 @ 0).
-	]."
 
 	aMarsRover moveBackwards.! !
 
@@ -559,24 +543,8 @@ MarsRoverCommand subclass: #ForwardCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!ForwardCommand methodsFor: 'private' stamp: 'LD 11/16/2021 20:30:46'!
+!ForwardCommand methodsFor: 'private' stamp: 'SS 11/18/2021 16:11:05'!
 beAccomplishedBy: aMarsRover
-	
-	"aMarsRover currentCardinal = 'N' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (0 @ 1).
-	].
-		
-	aMarsRover currentCardinal = 'O' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (-1 @ 0).
-	].
-		
-	aMarsRover currentCardinal = 'S' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (0 @ -1).
-	].	
-		
-	aMarsRover currentCardinal = 'E' ifTrue: [
-		^aMarsRover updatePosition: aMarsRover currentPosition + (1 @ 0).
-	]."
 
 	aMarsRover moveForward.	! !
 
@@ -599,28 +567,8 @@ MarsRoverCommand subclass: #LeftRotationCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!LeftRotationCommand methodsFor: 'private' stamp: 'LD 11/16/2021 20:30:56'!
+!LeftRotationCommand methodsFor: 'private' stamp: 'SS 11/18/2021 16:11:25'!
 beAccomplishedBy: aMarsRover
-
-	"| futureCardinal |
-			
-	aMarsRover currentCardinal = 'N' ifTrue: [
-		futureCardinal := 'O'.
-	].
-		
-	aMarsRover currentCardinal = 'O' ifTrue: [
-		futureCardinal := 'S'.
-	].
-		
-	aMarsRover currentCardinal = 'S' ifTrue: [
-		futureCardinal := 'E'.
-	].
-		
-	aMarsRover currentCardinal = 'E' ifTrue: [
-		futureCardinal := 'N'.
-	].
-		
-	^aMarsRover updateCardinal: futureCardinal."
 	
 	aMarsRover rotateToTheLeft.! !
 
@@ -643,28 +591,8 @@ MarsRoverCommand subclass: #RightRotationCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!RightRotationCommand methodsFor: 'private' stamp: 'LD 11/16/2021 20:31:06'!
+!RightRotationCommand methodsFor: 'private' stamp: 'SS 11/18/2021 16:11:34'!
 beAccomplishedBy: aMarsRover
-
-	"| futureCardinal |
-		
-	aMarsRover currentCardinal = 'N' ifTrue: [
-		futureCardinal := 'E'.
-	].
-		
-	aMarsRover currentCardinal = 'E' ifTrue: [
-		futureCardinal := 'S'.
-	].
-	
-	aMarsRover currentCardinal = 'S' ifTrue: [
-		futureCardinal := 'O'.
-	].
-		
-	aMarsRover currentCardinal = 'O' ifTrue: [
-		futureCardinal := 'N'.
-	].
-		
-	^aMarsRover updateCardinal: futureCardinal."
 	
 	aMarsRover rotateToTheRight.! !
 
